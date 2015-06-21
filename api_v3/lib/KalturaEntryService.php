@@ -961,9 +961,12 @@ class KalturaEntryService extends KalturaBaseService
 		$conversionProfile = myPartnerUtils::getConversionProfile2ForPartner($this->getPartnerId(), $conversionProfileId);
 		if($conversionProfile && $conversionProfile->getDefaultEntryId())
 		{
+			$entitlementForcedCurrentValue = kEntitlementUtils::getEntitlementForced();
+	
+			//in case of privacy context on ks - disable entitlement to get the default entry
 			kEntitlementUtils::setEntitlementForced(false);
 			$templateEntry = entryPeer::retrieveByPK($conversionProfile->getDefaultEntryId());
-			kEntitlementUtils::setEntitlementForced(true);
+			kEntitlementUtils::setEntitlementForced($entitlementForcedCurrentValue);
 			if($templateEntry)
 			{
 				$dbEntry = $templateEntry->copyTemplate(true);

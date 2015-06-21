@@ -28,6 +28,11 @@ class kEntitlementUtils
 		self::$entitlementForced = $v;
 	}
 	
+	public static function getEntitlementForced($v)
+	{
+		return self::$entitlementForced;
+	}
+	
 	public static function getCategoryModeration ()
 	{
 		return self::$categoryModeration;
